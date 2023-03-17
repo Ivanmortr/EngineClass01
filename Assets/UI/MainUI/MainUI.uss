@@ -1,0 +1,26 @@
+VisualElement {
+}
+
+.basic-text {
+    color: rgb(255, 210, 0);
+    font-size: 50px;
+    -unity-text-align: middle-center;
+    padding-top: 15px;
+    -unity-font-style: bold;
+    -unity-text-outline-color: rgba(241, 23, 10, 255);
+    -unity-text-outline-width: 0.5px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 255);
+    letter-spacing: 3px;
+    word-spacing: 5px;
+    background-image: none;
+}
+
+.anchor-right {
+    flex-grow: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    opacity: 1;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
