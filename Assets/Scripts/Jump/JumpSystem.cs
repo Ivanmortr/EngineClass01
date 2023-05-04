@@ -1,4 +1,8 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -30,6 +34,39 @@ namespace Jump
     
         // Routine for stay on air
         private IEnumerator jumpRoutine;
+
+        private readonly IEnumerable<string> fruits = new[] {"Apple", "Orange", "Watermelon", "Berries"};
+        
+        private async void GroundTouchedFirstTime(Action<string> onCompleted)
+        {
+            var message = "completed";
+
+            Debug.Log("loading...");
+            await Task.Delay(5000);
+            
+            try
+            {
+                onCompleted?.Invoke(message);
+            }
+            catch (Exception e)
+            {
+                message = "[Error]: Action not completed";
+                throw;
+            }
+        }
+
+        private void Start()
+        {
+            foreach (var fruit in fruits)
+            {
+                Debug.Log(fruit);
+            }
+
+            GroundTouchedFirstTime(message =>
+            {
+                
+            });
+        }
 
         public JumpSystem()
         {
