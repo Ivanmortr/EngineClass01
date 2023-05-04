@@ -44,6 +44,15 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""a82ebdd8-8f7a-4cb5-bde7-be4f49814d96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -189,6 +198,17 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81a4dcf3-12d2-4947-bb91-bd35c2c718f3"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -199,6 +219,7 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Axis2D = m_Default.FindAction("Axis2D", throwIfNotFound: true);
         m_Default_Jump = m_Default.FindAction("Jump", throwIfNotFound: true);
+        m_Default_MenuUI = m_Default.FindAction("MenuUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -260,12 +281,14 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Axis2D;
     private readonly InputAction m_Default_Jump;
+    private readonly InputAction m_Default_MenuUI;
     public struct DefaultActions
     {
         private @InputMapping m_Wrapper;
         public DefaultActions(@InputMapping wrapper) { m_Wrapper = wrapper; }
         public InputAction @Axis2D => m_Wrapper.m_Default_Axis2D;
         public InputAction @Jump => m_Wrapper.m_Default_Jump;
+        public InputAction @MenuUI => m_Wrapper.m_Default_MenuUI;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -281,6 +304,9 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJump;
+                @MenuUI.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenuUI;
+                @MenuUI.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenuUI;
+                @MenuUI.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenuUI;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -291,6 +317,9 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @MenuUI.started += instance.OnMenuUI;
+                @MenuUI.performed += instance.OnMenuUI;
+                @MenuUI.canceled += instance.OnMenuUI;
             }
         }
     }
@@ -299,5 +328,6 @@ public partial class @InputMapping : IInputActionCollection2, IDisposable
     {
         void OnAxis2D(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnMenuUI(InputAction.CallbackContext context);
     }
 }

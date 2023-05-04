@@ -13,11 +13,15 @@ namespace Collectables
 
         [SerializeField] 
         private UnityEvent<int> OnCollected;
+        
 
+        
+        
         public void Collect()
         {
             GameManager.Instance.Score.AddPoints(Value);
             GameManager.Instance.GetMainUI.UpdateScore(GameManager.Instance.Score);
+            GameManager.Instance.PlayCoinSound();
             Destroy(gameObject);
         }
 
